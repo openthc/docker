@@ -1,0 +1,121 @@
+<?php
+// Generated file
+
+return array (
+  'application' =>
+  array (
+    'id' => 'CONFIGURE_THIS',
+    'base' => 'http://localhost:4202/',
+    'logo' => 'https://cdn.openthc.com/img/logo.png',
+    'icon' => 'https://cdn.openthc.com/img/icon.png',
+    'lang' => 'en_US',
+    'name' => 'OpenTHC',
+    'email' => 'help@example.com',
+    'phone' => '+1 855 976 9333',
+    'salt' => 'CONFIGURE_THIS',
+  ),
+  'company' =>
+  array (
+    'name' => 'OpenTHC, Inc.',
+    'address' => '1752 NW Market St #955',
+    'city' => 'Seattle',
+    'region' => 'WA',
+    'postal' => '98107',
+  ),
+  'database' =>
+  array (
+    'auth' =>
+    array (
+      'hostname' => 'sql0',
+      'username' => 'openthc_auth',
+      'password' => 'openthc_auth',
+      'database' => 'openthc_auth',
+    ),
+    'main' =>
+    array (
+      'hostname' => 'sql0',
+      'username' => 'openthc_main',
+      'password' => 'openthc_main',
+      'database' => 'openthc_main',
+    ),
+    'app' =>
+    array (
+      'hostname' => 'sql0',
+      'username' => 'openthc_app',
+      'password' => 'openthc_app',
+      'database' => 'openthc_app',
+    ),
+    'cre' =>
+    array (
+      'hostname' => 'sql0',
+      'username' => 'openthc_cre',
+      'password' => 'openthc_cre',
+      'database' => 'openthc_cre',
+    ),
+  ),
+  'redis' =>
+  array (
+    'host' => 'redis',
+    'hostname' => 'redis',
+    'database' => '0',
+  ),
+  'statsd' =>
+  array (
+    'hostname' => '127.0.0.1',
+    'host' => '127.0.0.1',
+    'port' => 8192,
+  ),
+  'openthc' =>
+  array (
+    'cre' =>
+    array (
+      'hostname' => 'cre',
+      'secret' => '01FMTHWJ72PG8QHEPRVK5GYB88',
+    ),
+    'b2b' =>
+    array (
+      'hostname' => 'b2b',
+      'secret' => '/* CONFIGURE_THIS */',
+    ),
+    'data' =>
+    array (
+      'hostname' => 'data',
+      'secret' => '/* CONFIGURE_THIS */',
+    ),
+    'dir' =>
+    array (
+      'hostname' => 'directory.openthc.com',
+      'secret' => '',
+    ),
+    'lab' =>
+    array (
+      'hostname' => 'localhost:4203',
+      'public' => 'lab',
+      'secret' => 'lab.openthc.local-secret',
+    ),
+    'pos' =>
+    array (
+      'hostname' => 'localhost:4204',
+      'public' => 'pos',
+      'secret' => 'pos.openthc.local-secret',
+    ),
+    'sso' =>
+    array (
+      'hostname' => 'localhost:4201',
+      'secret' => 'app.openthc.example.com-secret',
+    ),
+  ),
+  'google' =>
+  array (
+    'map_api_key' => '/* CONFIGURE_THIS */',
+    'map_api_key_js' => '/* CONFIGURE_THIS */',
+    'font_api_key' => '/* CONFIGURE_THIS */',
+    'recaptcha-public' => '/* CONFIGURE_THIS */',
+    'recaptcha-secret' => '/* CONFIGURE_THIS */',
+  ),
+  'leaflink' =>
+  array (
+    'username' => '',
+    'password' => '',
+  ),
+);

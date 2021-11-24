@@ -1,0 +1,59 @@
+#
+# OpenTHC Docker Environment
+#
+version: "3.7"
+services:
+  sql:
+    container_name: sql0
+    image: openthc/sql:latest
+    ports:
+      - "127.0.0.1:42095:5432"
+  redis:
+    container_name: redis
+    image: redis
+
+  app:
+    container_name: app
+    image: openthc/app:latest
+    ports:
+      - "127.0.0.1:4202:80"
+    depends_on:
+      - sql
+      - redis
+    volumes:
+      - "./gfs:/opt/openthc/gfs"
+
+  lab:
+    container_name: lab
+    image: openthc/lab:latest
+    ports:
+      - "127.0.0.1:4203:80"
+    depends_on:
+      - sql
+      - redis
+    volumes:
+      - ./gfs:/opt/openthc/gfs
+      - "/opt/openthc/lab/lib:/opt/openthc/lab/lib"
+      - "/opt/openthc/lab/view:/opt/openthc/lab/view"
+
+  pos:
+    container_name: pos
+    image: openthc/pos:latest
+    ports:
+      - "127.0.0.1:4204:80"
+    depends_on:
+      - sql
+      - redis
+    volumes:
+      - "./gfs:/opt/openthc/gfs"
+
+  cre:
+    container_name: cre
+    image: openthc/cre:latest
+    ports:
+      - "127.0.0.1:4205:80"
+    depends_on:
+      - sql
+      - redis
+    volumes:
+      - "./gfs:/opt/openthc/gfs"
