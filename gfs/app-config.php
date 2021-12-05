@@ -92,12 +92,14 @@ return array (
       'hostname' => 'localhost:4203',
       'public' => 'lab',
       'secret' => 'lab.openthc.local-secret',
+      'base_url' => 'http://lab',
     ),
     'pos' =>
     array (
       'hostname' => 'localhost:4204',
       'public' => 'pos',
       'secret' => 'pos.openthc.local-secret',
+      'base_url' => 'http://pos',
     ),
     'sso' =>
     array (
