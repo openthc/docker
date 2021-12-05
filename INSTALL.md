@@ -1,4 +1,4 @@
-This installation document is intended for tests, demonstration, single-tenant amd small-scale productive environments.
+This installation document is intended for tests, demonstration, single-tenant and small-scale productive environments.
 
 ## Requirements
 
@@ -8,7 +8,7 @@ This installation document is intended for tests, demonstration, single-tenant a
 
 ## Preparation
 
-The default system is pre-configured to run in Demo mode. Service configurations are included in this repository in the `gfs/` directory. This directory is mounted into each service, and the service's initialization script copies the service config into place in the container.
+The default system is pre-configured to run in Demo mode. Service configurations live in the `gfs/` directory in this repository. Each service mounts the `gfs/` directory. On boot, the initialization script copies the service config into place.
 
 ```bash
 git clone https://github.com/openthc/docker.git /opt/openthc/docker
@@ -20,7 +20,7 @@ docker-compose pull
 
 ## Startup
 
-Authentication and profile configuration needs to be migrated after the environment's initial boot. To do this, run the `first-time.php` initialization script in the App service. Note: The initialization script uses the service configuration found in `gfs/`. These configurations must be modified before the first boot in order to migrate user modifications.
+After the environment's initial boot, we must migrate authentication and profile configuration. To do this, run the `first-time.php` initialization script in the App service.
 
 The following services will be available on the host system using the default configuration:
 

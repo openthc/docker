@@ -1,10 +1,13 @@
 <p align="center">
-	<img src="https://cdn.openthc.com/img/icon.png" height="150" alt="OpenTHC Greenhouse">
+	<img src="https://cdn.openthc.com/img/logo.png" height="150" alt="OpenTHC Greenhouse">
 </p>
 
 ---
-<!-- @todo change docker image repository -->
 ![Docker pulls](https://img.shields.io/docker/pulls/openthc/test-public.svg?style=for-the-badge)
+![Docker pulls](https://img.shields.io/docker/pulls/openthc/app.svg?style=for-the-badge)
+![Docker pulls](https://img.shields.io/docker/pulls/openthc/pos.svg?style=for-the-badge)
+![Docker pulls](https://img.shields.io/docker/pulls/openthc/lab.svg?style=for-the-badge)
+![Docker pulls](https://img.shields.io/docker/pulls/openthc/sql.svg?style=for-the-badge)
 
 OpenTHC is an environment of web-baed applications focused on helping Cannabis and Hemp participants meet their regulatory requirements.
 
