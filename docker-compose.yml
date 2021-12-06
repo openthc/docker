@@ -8,6 +8,8 @@ services:
     image: openthc/sql:latest
     ports:
       - "127.0.0.1:42095:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
   redis:
     container_name: redis
     image: redis
