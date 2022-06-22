@@ -32,7 +32,7 @@ For single-tenant or demonstration setups: it is recommended to use the docker-c
 ```bash
 $ docker-compose pull
 
-$ docker-compose up
+$ docker-compose up --detach
 ```
 
 ## Contributing
