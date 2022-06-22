@@ -14,11 +14,16 @@ services:
     container_name: redis
     image: redis
 
+#  www:
+#    container_name: www
+#    ports:
+#      - "4200:80"
+
   app:
     container_name: app
     image: openthc/app:latest
     ports:
-      - "127.0.0.1:4202:80"
+      - "0.0.0.0:4202:80"
     depends_on:
       - sql
       - redis
@@ -29,7 +34,7 @@ services:
     container_name: lab
     image: openthc/lab:latest
     ports:
-      - "127.0.0.1:4203:80"
+      - "0.0.0.0:4203:80"
     depends_on:
       - sql
       - redis
@@ -42,7 +47,7 @@ services:
     container_name: pos
     image: openthc/pos:latest
     ports:
-      - "127.0.0.1:4204:80"
+      - "0.0.0.0:4204:80"
     depends_on:
       - sql
       - redis
@@ -53,7 +58,7 @@ services:
     container_name: cre
     image: openthc/cre:latest
     ports:
-      - "127.0.0.1:4205:80"
+      - "0.0.0.0:4205:80"
     depends_on:
       - sql
       - redis
