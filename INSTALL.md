@@ -32,7 +32,7 @@ To login visit http://127.0.0.1:4202/auth/open
 
 |			|						|
 | ---		| ---					|
-| Email		| `root@opemthc.local`	|
+| Email		| `root@openthc.local`	|
 | Password 	| `password`			|
 
 
