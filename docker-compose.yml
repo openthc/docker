@@ -14,11 +14,6 @@ services:
     container_name: redis
     image: redis
 
-#  www:
-#    container_name: www
-#    ports:
-#      - "4200:80"
-
   app:
     container_name: app
     image: openthc/app:latest
@@ -40,8 +35,6 @@ services:
       - redis
     volumes:
       - ./gfs:/opt/openthc/gfs
-      - "/opt/openthc/lab/lib:/opt/openthc/lab/lib"
-      - "/opt/openthc/lab/view:/opt/openthc/lab/view"
 
   pos:
     container_name: pos
