@@ -22,6 +22,14 @@ docker-compose pull
 
 After the environment's initial boot, we must migrate authentication and profile configuration. To do this, run the `first-time.php` initialization script in the App service.
 
+```bash
+# Environment boot
+docker-compose up -d
+
+# Run this after the first boot
+docker-compose exec app php ./sbin/first-time.php
+```
+
 The following services will be available on the host system using the default configuration:
 
 - [App - http://127.0.0.1:4202](http://127.0.0.1:4202)
@@ -35,12 +43,4 @@ To login visit http://127.0.0.1:4202/auth/open
 | Email		| `root@openthc.local`	|
 | Password 	| `password`			|
 
-
-```bash
-# Environment boot
-docker-compose up -d
-
-# Run this after the first boot
-docker-compose exec app php ./sbin/first-time.php
-```
 
