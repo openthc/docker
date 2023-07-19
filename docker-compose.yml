@@ -1,8 +1,14 @@
 #
 # OpenTHC Docker Environment
 #
+# SPDX-License-Identifier: GPL-3.0-only
+#
+
+
 version: "3.7"
 services:
+
+  # The SQL Database Service
   sql:
     container_name: sql0
     image: openthc/sql:latest
@@ -10,50 +16,72 @@ services:
       - "127.0.0.1:42095:5432"
     environment:
       - POSTGRES_PASSWORD=postgres
+
+  # The Redis System
   redis:
-    container_name: redis
+    container_name: ram0
     image: redis
 
-  app:
-    container_name: app
-    image: openthc/app:latest
+  # Compliance Reporting Engine
+  cre:
+    container_name: cre
+    image: openthc/cre:latest
+    ports:
+      - "0.0.0.0:4201:80"
+    depends_on:
+      - sql
+      - redis
+    volumes:
+      - "./etc/config-cre.php:/opt/openthc/cre/etc/config.php"
+
+  # Single Sign On / Auth
+  sso:
+    container_name: sso
+    image: openthc/sso:latest
     ports:
       - "0.0.0.0:4202:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./gfs:/opt/openthc/gfs"
+      - "./etc/config-sso.php:/opt/openthc/sso/etc/config.php"
 
-  lab:
-    container_name: lab
-    image: openthc/lab:latest
+  # Main Application / S2S / TNT
+  app:
+    container_name: app
+    image: openthc/app:latest
     ports:
       - "0.0.0.0:4203:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - ./gfs:/opt/openthc/gfs
+      - "./etc/config-app.php:/opt/openthc/app/etc/config.php"
+      - "./gfs:/opt/openthc/gfs"
 
-  pos:
-    container_name: pos
-    image: openthc/pos:latest
+  # Laboratory Interface
+  lab:
+    container_name: lab
+    image: openthc/lab:latest
     ports:
       - "0.0.0.0:4204:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./gfs:/opt/openthc/gfs"
+      - "./etc/config-lab.php:/opt/openthc/lab/etc/config.php"
+      - ./gfs:/opt/openthc/gfs
+      # - "/opt/openthc/lab/lib:/opt/openthc/lab/lib"
+      # - "/opt/openthc/lab/view:/opt/openthc/lab/view"
 
-  cre:
-    container_name: cre
-    image: openthc/cre:latest
+  # Point of Sale
+  pos:
+    container_name: pos
+    image: openthc/pos:latest
     ports:
       - "0.0.0.0:4205:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./gfs:/opt/openthc/gfs"
+      - "./etc/config-pos.php:/opt/openthc/pos/etc/config.php"
