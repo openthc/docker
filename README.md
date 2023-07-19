@@ -31,7 +31,7 @@ OpenTHC services:
   - Front end for Retail staff
   - Business-to-Consumer regulatory compliance reporting
 - [CRE](https://github.com/openthc/cre)
-  - Central reporting engine
+  - Central Reporting Engine
 - [SQL](https://hub.docker.com/r/openthc/sql)
   - PostgreSQL database
 
@@ -53,8 +53,8 @@ And there are back-end "core" services that operate as well
 For single-tenant or demonstration setups: it is recommended to use the docker-compose definition. See [INSTALL.md](./INSTALL.md) for more information.
 
 ```bash
-$ docker-compose pull
-$ docker-compose up --detach
+$ docker compose pull
+$ docker compose up --detach
 ```
 
 
