@@ -1,5 +1,5 @@
 #
-# OpenTHC Docker Environment
+# OpenTHC Full Docker Environment
 #
 # SPDX-License-Identifier: GPL-3.0-only
 #
@@ -27,36 +27,45 @@ services:
     container_name: cre
     image: openthc/cre:latest
     ports:
-      - "0.0.0.0:4201:80"
+      - "0.0.0.0:42010:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./etc/config-cre.php:/opt/openthc/cre/etc/config.php"
+      - type: bind
+        source: ./etc/config-cre.php
+        target: /opt/openthc/cre/etc/config.php
+        read_only: true
 
   # Single Sign On / Auth
   sso:
     container_name: sso
     image: openthc/sso:latest
     ports:
-      - "0.0.0.0:4202:80"
+      - "0.0.0.0:42020:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./etc/config-sso.php:/opt/openthc/sso/etc/config.php"
+      - type: bind
+        source: ./etc/config-sso.php
+        target: /opt/openthc/sso/etc/config.php
+        read_only: true
 
   # Main Application / S2S / TNT
   app:
     container_name: app
     image: openthc/app:latest
     ports:
-      - "0.0.0.0:4203:80"
+      - "0.0.0.0:42030:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./etc/config-app.php:/opt/openthc/app/etc/config.php"
+      - type: bind
+        source: ./etc/config-app.php
+        target: /opt/openthc/app/etc/config.php
+        read_only: true
       - "./gfs:/opt/openthc/gfs"
 
   # Laboratory Interface
@@ -64,13 +73,16 @@ services:
     container_name: lab
     image: openthc/lab:latest
     ports:
-      - "0.0.0.0:4204:80"
+      - "0.0.0.0:42040:80"
     depends_on:
       - sql
       - redis
     volumes:
-      - "./etc/config-lab.php:/opt/openthc/lab/etc/config.php"
-      - ./gfs:/opt/openthc/gfs
+      - type: bind
+        source: ./etc/config-lab.php
+        target: /opt/openthc/lab/etc/config.php
+        read_only: true
+      - "./gfs:/opt/openthc/gfs"
       # - "/opt/openthc/lab/lib:/opt/openthc/lab/lib"
       # - "/opt/openthc/lab/view:/opt/openthc/lab/view"
 
@@ -79,7 +91,7 @@ services:
     container_name: pos
     image: openthc/pos:latest
     ports:
-      - "0.0.0.0:4205:80"
+      - "0.0.0.0:42050:80"
     depends_on:
       - sql
       - redis
