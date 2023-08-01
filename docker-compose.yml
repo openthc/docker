@@ -4,63 +4,80 @@
 # SPDX-License-Identifier: GPL-3.0-only
 #
 
-
 version: "3.7"
+
 services:
 
   # The SQL Database Service
   sql:
     container_name: sql0
     image: openthc/sql:latest
-    ports:
-      - "127.0.0.1:42095:5432"
     environment:
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "127.0.0.1:42095:5432"
 
   # The Redis System
   redis:
     container_name: ram0
     image: redis
 
-  # Compliance Reporting Engine
-  cre:
-    container_name: cre
-    image: openthc/cre:latest
-    ports:
-      - "0.0.0.0:42010:80"
-    depends_on:
-      - sql
-      - redis
-    volumes:
-      - type: bind
-        source: ./etc/config-cre.php
-        target: /opt/openthc/cre/etc/config.php
-        read_only: true
-
-  # Single Sign On / Auth
+  # Single Sign On Services
   sso:
-    container_name: sso
+    container_name: openthc-suite-sso
     image: openthc/sso:latest
-    ports:
-      - "0.0.0.0:42020:80"
     depends_on:
       - sql
       - redis
+    ports:
+      - "42010:80"
     volumes:
       - type: bind
         source: ./etc/config-sso.php
         target: /opt/openthc/sso/etc/config.php
         read_only: true
 
+  # Compliance Reporting Engine
+  cre:
+    container_name: cre
+    image: openthc/cre:latest
+    depends_on:
+      - sql
+      - redis
+    ports:
+      - "42020:80"
+    volumes:
+      - type: bind
+        source: ./etc/config-cre.php
+        target: /opt/openthc/cre/etc/config.php
+        read_only: true
+
+  # PIPE
+
+  # BONG
+  bong:
+    container_name: bong
+    image: openthc/bong:latest
+    depends_on:
+      - sql
+      - redis
+    ports:
+      - "42024:80"
+    volumes:
+      - type: bind
+        source: ./etc/config-bong.php
+        target: /opt/openthc/bong/etc/config.php
+        read_only: true
+
   # Main Application / S2S / TNT
   app:
     container_name: app
     image: openthc/app:latest
-    ports:
-      - "0.0.0.0:42030:80"
     depends_on:
       - sql
       - redis
+    ports:
+      - "42030:80"
     volumes:
       - type: bind
         source: ./etc/config-app.php
@@ -72,11 +89,11 @@ services:
   lab:
     container_name: lab
     image: openthc/lab:latest
-    ports:
-      - "0.0.0.0:42040:80"
     depends_on:
       - sql
       - redis
+    ports:
+      - "42040:80"
     volumes:
       - type: bind
         source: ./etc/config-lab.php
@@ -90,10 +107,14 @@ services:
   pos:
     container_name: pos
     image: openthc/pos:latest
-    ports:
-      - "0.0.0.0:42050:80"
     depends_on:
       - sql
       - redis
+    ports:
+      - "42050:80"
     volumes:
       - "./etc/config-pos.php:/opt/openthc/pos/etc/config.php"
+
+volumes:
+  gfs:
+    name: openthc-gfs
