@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://cdn.openthc.com/img/logo.png" height="150" alt="OpenTHC Greenhouse">
+	<img src="https://cdn.openthc.com/img/logo.png" height="128" alt="OpenTHC Greenhouse">
 </p>
 
 OpenTHC is an environment of web-baed applications focused on helping Cannabis/Hemp and Organic Horticulture industry participants meet their regulatory requirements.
@@ -16,10 +16,31 @@ These images are available from our [Docker Hub Profile](https://hub.docker.com/
 [![Docker Pulls openthc/sql](https://img.shields.io/docker/pulls/openthc/sql.svg?label=openthc%2Fsql&style=for-the-badge)](https://hub.docker.com/r/openthc/sql)
 
 
-## Features
+## Quick Start
 
-OpenTHC services:
+```bash
+git clone https://github.com/openthc/docker.git /opt/openthc/docker
+cd /opt/openthc/docker
+docker compose up -d
+```
 
+Then visit http://localhost:42010/ => http://localhost:42040/auth/open?service=app.openthc.docker.example.com
+
+
+See [INSTALL.md](./INSTALL.md) for more information.
+
+docker compose stop
+docker compose start
+
+
+## Services
+
+These are the services run by the OpenTHC Docker suite.
+
+- [SQL](https://hub.docker.com/r/openthc/sql): PostgreSQL Database
+- RAM: Redis
+- [SSO](https://github.com/openthc/sso): Single Sign On / oAuth / Account services
+- [CRE](https://github.com/openthc/cre): Compliance Reporting Engine
 - [App](https://github.com/openthc/app)
   - Track and Trace (T&T/TnT)
   - Enterprise resource planning (ERP)
@@ -30,38 +51,11 @@ OpenTHC services:
 - [Point of Sale](https://github.com/openthc/pos)
   - Front end for Retail staff
   - Business-to-Consumer regulatory compliance reporting
-- [CRE](https://github.com/openthc/cre)
-  - Central Reporting Engine
-- [SQL](https://hub.docker.com/r/openthc/sql)
-  - PostgreSQL database
-
-And there are back-end "core" services that operate as well
-
-- CRE - A dummy compliance reporting engine
-- SSO - The Authentication Portal
-- WWW - A Dummy Service Homepage to point to the other ones
-
-
-## Installation
-
-### Requirements
-
-- Host server with at least 4 GB of RAM
-- [Docker](https://docs.docker.com/engine/)
-- [Docker Compose](https://docs.docker.com/compose/)
-
-For single-tenant or demonstration setups: it is recommended to use the docker-compose definition. See [INSTALL.md](./INSTALL.md) for more information.
-
-```bash
-$ docker compose pull
-$ docker compose up --detach
-```
-
 
 ## Contributing
 
 - Report Bugs
-- Suggest Enhansements / Feature Requests
+- Suggest Enhancements / Feature Requests
 - Code Contributions
 
 ## Getting Support
