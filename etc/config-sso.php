@@ -5,6 +5,10 @@
 
 $cfg = [];
 
+$cfg['application'] = [
+	'base' => 'http://localhost:42010',
+];
+
 $cfg['openthc'] = [
 	'app' => [
 		'base_url' => 'http://localhost:42030',

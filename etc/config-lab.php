@@ -5,6 +5,11 @@
  */
 
 $cfg = [];
+
+$cfg['application'] = [
+	'base' => 'http://localhost:42040',
+];
+
 $cfg['database'] = [
 	'auth' => [
 		'hostname' => 'sql0',

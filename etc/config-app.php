@@ -5,7 +5,10 @@ return array (
   'application' =>
   array (
     'id' => 'CONFIGURE_THIS',
+    /*
     'base' => 'http://localhost:4202/',
+    */
+    'base' => 'http://localhost:42030',
     'logo' => 'https://cdn.openthc.com/img/logo.png',
     'icon' => 'https://cdn.openthc.com/img/icon.png',
     'lang' => 'en_US',

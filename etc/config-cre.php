@@ -7,6 +7,7 @@ $cfg = [];
 
 $cfg['application'] = [
 	'id' => '01FMTHWJ72PG8QHEPRVK5GYB88',
+	'base' => 'http://localhost:42020',
 ];
 
 $cfg['database'] = [
