@@ -30,7 +30,10 @@ $cfg['redis'] = [
 
 $cfg['openthc'] = [
 	'app' => [
+		/*
 		'hostname' => 'localhost:4202',
+		*/
+		'hostname' => 'app',
 		'public' => 'app',
 		'secret' => 'CONFIGURE_THIS',
 		'scope' => 'contact company',

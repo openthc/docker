@@ -92,7 +92,10 @@ return array (
     ),
     'lab' =>
     array (
+      /*
       'hostname' => 'localhost:4203',
+      */
+      'hostname' => 'lab',
       'public' => 'lab',
       'secret' => 'lab.openthc.local-secret',
       /*
@@ -102,7 +105,10 @@ return array (
     ),
     'pos' =>
     array (
+      /*
       'hostname' => 'localhost:4204',
+      */
+      'hostname' => 'pos',
       'public' => 'pos',
       'secret' => 'pos.openthc.local-secret',
       /*
@@ -112,7 +118,10 @@ return array (
     ),
     'sso' =>
     array (
+      /*
       'hostname' => 'localhost:4201',
+      */
+      'hostname' => 'sso',
       'secret' => 'app.openthc.example.com-secret',
       'base_url' => 'http://127.0.0.1:42010',
     ),
