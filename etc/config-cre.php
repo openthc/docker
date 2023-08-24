@@ -24,6 +24,7 @@ $cfg['redis'] = [
 $cfg['openthc'] = [
 	'sso' => [
 		'hostname' => 'sso',
+		'base_url' => 'http://127.0.0.1:42010',
 	]
 ];
 

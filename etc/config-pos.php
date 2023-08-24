@@ -30,6 +30,7 @@ $cfg['openthc'] = [
 		'public' => 'app',
 		'secret' => 'CONFIGURE_THIS',
 		'scope' => 'contact company',
+		'base_url' => 'http://localhost:42030/',
 	],
 	'dir' => [
 		'hostname' => 'dir'
@@ -43,6 +44,7 @@ $cfg['openthc'] = [
 		'hostname' => 'sso',
 		'secret' => '',
 		'scope' => 'contact company profile cre pos',
+		'base_url' => 'http://127.0.0.1:42010',
 	]
 ];
 
