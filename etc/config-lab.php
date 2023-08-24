@@ -31,8 +31,7 @@ $cfg['openthc'] = [
 	],
 	'lab' => [
 		'hostname' => 'lab',
-		'secret' => 'lab.openthc.local-secret'
-		,
+		'secret' => 'lab.openthc.local-secret',
 		'base_url' => 'http://127.0.0.1:42040',
 	],
 	'pipe' => [
@@ -41,8 +40,7 @@ $cfg['openthc'] = [
 	'sso' => [
 		'hostname' => 'sso',
 		'public' => 'lab',
-		'secret' => 'lab.openthc.local-secret'
-		,
+		'secret' => 'lab.openthc.local-secret',
 		'base_url' => 'http://127.0.0.1:42010',
 	],
 ];
