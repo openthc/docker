@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://cdn.openthc.com/img/logo.png" height="128" alt="OpenTHC Greenhouse">
+	<img src="https://openthc.com/img/logo.png" height="128" alt="OpenTHC Greenhouse">
 </p>
 
 OpenTHC is an environment of web-baed applications focused on helping Cannabis/Hemp and Organic Horticulture industry participants meet their regulatory requirements.
@@ -29,9 +29,6 @@ Then visit http://localhost:42010/ => http://localhost:42040/auth/open?service=a
 
 See [INSTALL.md](./INSTALL.md) for more information.
 
-docker compose stop
-docker compose start
-
 
 ## Services
 
@@ -52,11 +49,13 @@ These are the services run by the OpenTHC Docker suite.
   - Front end for Retail staff
   - Business-to-Consumer regulatory compliance reporting
 
+
 ## Contributing
 
 - Report Bugs
 - Suggest Enhancements / Feature Requests
 - Code Contributions
+
 
 ## Getting Support
 
