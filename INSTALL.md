@@ -1,26 +1,62 @@
-This installation document is intended for tests, demonstration, single-tenant and small-scale productive environments.
+# Install
+
+Full instrucitons for installing and configuring the Docker based OpenTHC Suite.
+Out of the box the system is pre-configured to run in a limited demo mode.
+For full production one needs to update the configuration.
+
 
 ## Requirements
 
-- Host server with at least 2 GB of RAM
-- [Docker](https://docs.docker.com/desktop/)
-- [Docker Compose](https://docs.docker.com/compose/)
-
-## Preparation
-
-The default system is pre-configured to run in Demo mode. Service configurations live in the `gfs/` directory in this repository. Each service mounts the `gfs/` directory. On boot, the initialization script copies the service config into place.
+- Host server with at least 4 GB of RAM (prefer Debian 11)
+- [Docker CLI](https://github.com/docker/cli) version 24 or newer
 
 ```bash
 git clone https://github.com/openthc/docker.git /opt/openthc/docker
-
 cd /opt/openthc/docker
+```
 
-docker-compose pull
+To run our helper scripts you'll need PHP with libsodium (standard on Debian 11)
+
+Edit YAML or ENV and run `make.php` ?
+That build SQL file and Config File
+That run against SQL after the first boot.
+
+
+## Configuration
+
+To make the system ready for a live environment a few changes must be made.
+Networking should be updated to change the listening ports or use reverse-proxy, then update service-origin configurations.
+Service Keys should be re-generated and update configurations.
+Create new Contact(user) and Company and License records.
+
+There is a helper script in `bin/` and it can use values from the `.env` file.
+
+
+## Networking
+
+To make the OpenTHC services generally available you may want to change the ports.
+Then update each of the service configuration files with the new 'origin' values for the service.
+
+Other options are to proxy to this system from an up-stream webserver such as Apache, Caddy or Nginx.
+May the force be with you.
+
+
+## Service Keys
+
+The services use encrypted tokens to pass data to each other.
+Or communicate session data and other details.
+
+
+```
+nano .env
+nano docker-composer.yaml
+docker compose up
 ```
 
 ## Startup
 
-After the environment's initial boot, we must migrate authentication and profile configuration. To do this, run the `first-time.php` initialization script in the App service.
+After the environment's initial boot, we must migrate authentication and profile configuration.
+To do this, run the `first-time.php` initialization script in the App service.
 
 ```bash
 # Environment boot
@@ -32,15 +68,13 @@ docker-compose exec app php ./sbin/first-time.php
 
 The following services will be available on the host system using the default configuration:
 
-- [App - http://127.0.0.1:4202](http://127.0.0.1:4202)
-- [Lab Portal - http://127.0.0.1:4203](http://127.0.0.1:4203)
-- [Point of Sale - http://127.0.0.1:4204](http://127.0.0.1:4204)
+- [App - http://localhost:42030](http://localhost:42030)
+- [Lab Portal - http://localhost:42040](http://localhost:42040)
+- [Point of Sale - http://localhost:42050](http://localhost:42050)
 
-To login visit http://127.0.0.1:4202/auth/open
+To login visit http://localhost:42010/auth/open
 
 |			|						|
 | ---		| ---					|
 | Email		| `root@openthc.local`	|
 | Password 	| `password`			|
-
-
