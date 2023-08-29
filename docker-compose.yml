@@ -14,8 +14,8 @@ services:
     image: openthc/sql:latest
     environment:
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - "127.0.0.1:42095:5432"
+    # ports:
+      # - "127.0.0.1:42095:5432"
 
   # The Redis System
   redis:

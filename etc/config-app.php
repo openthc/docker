@@ -5,35 +5,17 @@ return array (
   'application' =>
   array (
     'id' => 'CONFIGURE_THIS',
-    /*
-    'base' => 'http://localhost:4202/',
-    */
     'base' => 'http://localhost:42030',
-    'logo' => 'https://cdn.openthc.com/img/logo.png',
-    'icon' => 'https://cdn.openthc.com/img/icon.png',
+    'logo' => 'https://openthc.com/img/logo.png',
+    'icon' => 'https://openthc.com/img/icon.png',
     'lang' => 'en_US',
     'name' => 'OpenTHC',
     'email' => 'help@example.com',
     'phone' => '+1 855 976 9333',
     'salt' => 'CONFIGURE_THIS',
   ),
-  'company' =>
-  array (
-    'name' => 'OpenTHC, Inc.',
-    'address' => '1752 NW Market St #955',
-    'city' => 'Seattle',
-    'region' => 'WA',
-    'postal' => '98107',
-  ),
   'database' =>
   array (
-    'auth' =>
-    array (
-      'hostname' => 'sql0',
-      'username' => 'openthc_auth',
-      'password' => 'openthc_auth',
-      'database' => 'openthc_auth',
-    ),
     'main' =>
     array (
       'hostname' => 'sql0',
@@ -48,13 +30,6 @@ return array (
       'password' => 'openthc_app',
       'database' => 'openthc_app',
     ),
-    'cre' =>
-    array (
-      'hostname' => 'sql0',
-      'username' => 'openthc_cre',
-      'password' => 'openthc_cre',
-      'database' => 'openthc_cre',
-    ),
   ),
   'redis' =>
   array (
@@ -64,51 +39,43 @@ return array (
   ),
   'statsd' =>
   array (
-    'hostname' => '127.0.0.1',
-    'host' => '127.0.0.1',
+    'hostname' => 'localhost',
+    'host' => 'localhost',
     'port' => 8192,
   ),
   'openthc' =>
   array (
     'cre' =>
     array (
-      'hostname' => 'cre',
+      'origin' => 'http://localhost:42020',
       'secret' => '01FMTHWJ72PG8QHEPRVK5GYB88',
     ),
     'b2b' =>
     array (
-      'hostname' => 'b2b',
-      'secret' => '/* CONFIGURE_THIS */',
-    ),
-    'data' =>
-    array (
-      'hostname' => 'data',
+      'origin' => 'https://b2b.openthc.com',
       'secret' => '/* CONFIGURE_THIS */',
     ),
     'dir' =>
     array (
-      'hostname' => 'directory.openthc.com',
+      'origin' => 'https://directory.openthc.com',
       'secret' => '',
     ),
     'lab' =>
     array (
-      'hostname' => 'lab',
+      'origin' => 'http://localhost:42040',
       'public' => 'lab',
       'secret' => 'lab.openthc.local-secret',
-      'base_url' => 'http://127.0.0.1:42040',
     ),
     'pos' =>
     array (
-      'hostname' => 'pos',
+      'origin' => 'http://localhost:42050',
       'public' => 'pos',
       'secret' => 'pos.openthc.local-secret',
-      'base_url' => 'http://127.0.0.1:42050',
     ),
     'sso' =>
     array (
-      'hostname' => 'sso',
+      'origin' => 'http://localhost:42010',
       'secret' => 'app.openthc.example.com-secret',
-      'base_url' => 'http://127.0.0.1:42010',
     ),
   ),
   'google' =>

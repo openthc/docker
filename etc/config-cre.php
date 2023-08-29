@@ -5,11 +5,6 @@
 
 $cfg = [];
 
-$cfg['application'] = [
-	'id' => '01FMTHWJ72PG8QHEPRVK5GYB88',
-	'base' => 'http://localhost:42020',
-];
-
 $cfg['database'] = [
 	'hostname' => 'sql0',
 	'database' => 'openthc_cre',
@@ -19,13 +14,17 @@ $cfg['database'] = [
 
 $cfg['redis'] = [
 	'hostname' => 'redis',
-	'database' => '0',
 ];
 
 $cfg['openthc'] = [
+	'cre' => [
+		'id' => '01FMTHWJ72PG8QHEPRVK5GYB88',
+		'origin' => 'http://localhost:42020',
+	],
 	'sso' => [
-		'hostname' => 'sso',
-		'base_url' => 'http://127.0.0.1:42010',
+		'origin' => 'http://localhost:42010',
+		'public' => '',
+		'secret' => '',
 	]
 ];
 

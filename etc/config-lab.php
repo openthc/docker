@@ -6,17 +6,7 @@
 
 $cfg = [];
 
-$cfg['application'] = [
-	'base' => 'http://localhost:42040',
-];
-
 $cfg['database'] = [
-	'auth' => [
-		'hostname' => 'sql0',
-		'database' => 'openthc_auth',
-		'username' => 'openthc_auth',
-		'password' => 'openthc_auth',
-	],
 	'main' => [
 		'hostname' => 'sql0',
 		'database' => 'openthc_main',
@@ -27,21 +17,16 @@ $cfg['database'] = [
 
 $cfg['openthc'] = [
 	'dir' => [
-		'hostname' => 'dir'
+		'origin' => 'http://localhost:42030'
 	],
 	'lab' => [
-		'hostname' => 'lab',
+		'origin' => 'http://localhost:42040',
 		'secret' => 'lab.openthc.local-secret',
-		'base_url' => 'http://127.0.0.1:42040',
-	],
-	'pipe' => [
-		'hostname' => 'pipe'
 	],
 	'sso' => [
-		'hostname' => 'sso',
+		'origin' => 'http://localhost:42010',
 		'public' => 'lab',
 		'secret' => 'lab.openthc.local-secret',
-		'base_url' => 'http://127.0.0.1:42010',
 	],
 ];
 

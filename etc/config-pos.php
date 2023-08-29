@@ -10,12 +10,6 @@ $cfg['application'] = [
 ];
 
 $cfg['database'] = [
-	'auth' => [
-		'hostname' => 'sql0',
-		'username' => 'openthc_auth',
-		'password' => 'openthc_auth',
-		'database' => 'openthc_auth',
-	],
 	'main' => [
 		'hostname' => 'sql0',
 		'username' => 'openthc_main',
@@ -30,25 +24,23 @@ $cfg['redis'] = [
 
 $cfg['openthc'] = [
 	'app' => [
-		'hostname' => 'app',
+		'origin' => 'http://localhost:42030/',
 		'public' => 'app',
 		'secret' => 'CONFIGURE_THIS',
 		'scope' => 'contact company',
-		'base_url' => 'http://localhost:42030/',
 	],
 	'dir' => [
 		'hostname' => 'dir'
 	],
 	'pipe' => [
-		'hostname' => 'pipe',
+		'origin' => '',
 		'secret' => '',
 		'scope' => 'pipe cre',
 	],
 	'sso' => [
-		'hostname' => 'sso',
+		'origin' => 'http://localhost:42010',
 		'secret' => '',
 		'scope' => 'contact company profile cre pos',
-		'base_url' => 'http://127.0.0.1:42010',
 	]
 ];
 
