@@ -10,22 +10,25 @@ services:
 
   # The SQL Database Service
   sql:
-    container_name: sql0
-    image: openthc/sql:latest
+    container_name: openthc-suite-sql
+    image: openthc/sql
     environment:
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD="OpenTHC!420"
     # ports:
-      # - "127.0.0.1:42095:5432"
+    #   - "127.0.0.1:42095:5432"
 
   # The Redis System
   redis:
+    # want to be openthc-rdb
     container_name: ram0
     image: redis
+
+  # Save room at 42000:42000 for a main/control/install type app?
 
   # Single Sign On Services
   sso:
     container_name: openthc-suite-sso
-    image: openthc/sso:latest
+    image: openthc/sso
     depends_on:
       - sql
       - redis
@@ -33,14 +36,14 @@ services:
       - "42010:80"
     volumes:
       - type: bind
-        source: ./etc/config-sso.php
+        source: ../etc/config-sso.php
         target: /opt/openthc/sso/etc/config.php
         read_only: true
 
   # Compliance Reporting Engine
   cre:
-    container_name: cre
-    image: openthc/cre:latest
+    container_name: openthc-suite-cre
+    image: openthc/cre
     depends_on:
       - sql
       - redis
@@ -48,31 +51,39 @@ services:
       - "42020:80"
     volumes:
       - type: bind
-        source: ./etc/config-cre.php
+        source: ../etc/config-cre.php
         target: /opt/openthc/cre/etc/config.php
         read_only: true
+      # - openthc-gfs
 
   # PIPE
+  # pipe:
+  #   container_name: openthc-suite-pipe
+  #   image: openthc/pipe
+  #   ports:
+  #     - "42022:80"
+  #   volumes:
+  #     - type: bind
+  #       source: ../etc/config-pipe.php
+  #       target: /opt/openthc/pipe/etc/config.php
+  #       read_only: true
 
   # BONG
-  bong:
-    container_name: bong
-    image: openthc/bong:latest
-    depends_on:
-      - sql
-      - redis
-    ports:
-      - "42024:80"
-    volumes:
-      - type: bind
-        source: ./etc/config-bong.php
-        target: /opt/openthc/bong/etc/config.php
-        read_only: true
+  # bong:
+  #   container_name: openthc-suite-bong
+  #   image: openthc/bong:
+  #   ports:
+  #     - "42024:80"
+  #   volumes:
+  #     - type: bind
+  #       source: ../etc/config-bong.php
+  #       target: /opt/openthc/bong/etc/config.php
+  #       read_only: true
 
   # Main Application / S2S / TNT
   app:
-    container_name: app
-    image: openthc/app:latest
+    container_name: openthc-suite-app
+    image: openthc/app
     depends_on:
       - sql
       - redis
@@ -80,15 +91,14 @@ services:
       - "42030:80"
     volumes:
       - type: bind
-        source: ./etc/config-app.php
+        source: ../etc/config-app.php
         target: /opt/openthc/app/etc/config.php
         read_only: true
-      - "./gfs:/opt/openthc/gfs"
 
   # Laboratory Interface
   lab:
-    container_name: lab
-    image: openthc/lab:latest
+    container_name: openthc-suite-lab
+    image: openthc/lab
     depends_on:
       - sql
       - redis
@@ -96,24 +106,24 @@ services:
       - "42040:80"
     volumes:
       - type: bind
-        source: ./etc/config-lab.php
+        source: ../etc/config-lab.php
         target: /opt/openthc/lab/etc/config.php
         read_only: true
-      - "./gfs:/opt/openthc/gfs"
-      # - "/opt/openthc/lab/lib:/opt/openthc/lab/lib"
-      # - "/opt/openthc/lab/view:/opt/openthc/lab/view"
 
   # Point of Sale
   pos:
-    container_name: pos
-    image: openthc/pos:latest
+    container_name: openthc-suite-pos
+    image: openthc/pos
     depends_on:
       - sql
       - redis
     ports:
       - "42050:80"
     volumes:
-      - "./etc/config-pos.php:/opt/openthc/pos/etc/config.php"
+      - type: bind
+        source: ../etc/config-pos.php
+        target: /opt/openthc/pos/etc/config.php
+        read_only: true
 
 volumes:
   gfs:
