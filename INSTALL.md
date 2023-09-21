@@ -40,6 +40,22 @@ Then update each of the service configuration files with the new 'origin' values
 Other options are to proxy to this system from an up-stream webserver such as Apache, Caddy or Nginx.
 May the force be with you.
 
+The OpenTHC Suite runs in a dedicated network on the Docker container, the subnetn `10.4.20.*` **MUST** available on your network.
+To make the OpenTHC Suite availble to other devices on your network you can either configure routing to this subnet or configure DNS and a reverse proxy on the host.
+
+
+### Routing
+
+Tell your local network to route 10.4.20.* to the IP of the docker host.
+This makes it function as a gateway.
+You may need to enable IP forwarding in the kernel, or other firewall rules.
+
+
+### DNS + Reverse Proxy
+
+Set the names, then configure Nginx or something.
+The backend can be configured to either the localhost:420* ports or on the 10-net port 80.
+
 
 ## Service Keys
 
