@@ -10,28 +10,37 @@ services:
 
   # The SQL Database Service
   sql:
-    container_name: openthc-suite-sql
+    container_name: sql.openthc.example
     image: openthc/sql
     environment:
       - POSTGRES_PASSWORD="OpenTHC!420"
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.250
     # ports:
     #   - "127.0.0.1:42095:5432"
 
   # The Redis System
-  redis:
+  ram:
     # want to be openthc-rdb
-    container_name: ram0
+    container_name: ram.openthc.example
     image: redis
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.240
 
   # Save room at 42000:42000 for a main/control/install type app?
 
   # Single Sign On Services
   sso:
-    container_name: openthc-suite-sso
+    container_name: sso.openthc.example
     image: openthc/sso
     depends_on:
       - sql
       - redis
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.10
     ports:
       - "42010:80"
     volumes:
@@ -42,11 +51,14 @@ services:
 
   # Compliance Reporting Engine
   cre:
-    container_name: openthc-suite-cre
+    container_name: cre.openthc.example
     image: openthc/cre
     depends_on:
       - sql
       - redis
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.20
     ports:
       - "42020:80"
     volumes:
@@ -58,7 +70,7 @@ services:
 
   # PIPE
   # pipe:
-  #   container_name: openthc-suite-pipe
+  #   container_name: pipe.openthc.example
   #   image: openthc/pipe
   #   ports:
   #     - "42022:80"
@@ -70,7 +82,7 @@ services:
 
   # BONG
   # bong:
-  #   container_name: openthc-suite-bong
+  #   container_name: bong.openthc.example
   #   image: openthc/bong:
   #   ports:
   #     - "42024:80"
@@ -82,11 +94,14 @@ services:
 
   # Main Application / S2S / TNT
   app:
-    container_name: openthc-suite-app
+    container_name: app.openthc.example
     image: openthc/app
     depends_on:
       - sql
       - redis
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.30
     ports:
       - "42030:80"
     volumes:
@@ -97,11 +112,14 @@ services:
 
   # Laboratory Interface
   lab:
-    container_name: openthc-suite-lab
+    container_name: lab.openthc.example
     image: openthc/lab
     depends_on:
       - sql
       - redis
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.40
     ports:
       - "42040:80"
     volumes:
@@ -112,11 +130,14 @@ services:
 
   # Point of Sale
   pos:
-    container_name: openthc-suite-pos
+    container_name: pos.openthc.example
     image: openthc/pos
     depends_on:
       - sql
       - redis
+    networks:
+      openthc-subnet:
+        ipv4_address: 10.4.20.50
     ports:
       - "42050:80"
     volumes:
@@ -124,6 +145,14 @@ services:
         source: ../etc/config-pos.php
         target: /opt/openthc/pos/etc/config.php
         read_only: true
+
+networks:
+  openthc-subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.4.20.0/24
+          gateway: 10.4.20.1
 
 volumes:
   gfs:
