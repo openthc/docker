@@ -6,23 +6,23 @@
 $cfg = [];
 
 $cfg['database'] = [
-	'hostname' => 'sql0',
+	'hostname' => 'sql',
 	'database' => 'openthc_cre',
 	'username' => 'openthc_cre',
 	'password' => 'openthc_cre',
 ];
 
 $cfg['redis'] = [
-	'hostname' => 'redis',
+	'hostname' => 'ram',
 ];
 
 $cfg['openthc'] = [
 	'cre' => [
-		'id' => '01FMTHWJ72PG8QHEPRVK5GYB88',
-		'origin' => 'http://localhost:42020',
+		'id' => '010PENTHCXSERV1CE000000CRE',
+		'origin' => 'http://10.4.20.20',
 	],
 	'sso' => [
-		'origin' => 'http://localhost:42010',
+		'origin' => 'http://10.4.20.10',
 		'public' => '',
 		'secret' => '',
 	]

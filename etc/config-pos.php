@@ -13,7 +13,7 @@ $cfg['database'] = [
 		'database' => 'openthc_auth',
 	],
 	'main' => [
-		'hostname' => 'sql0',
+		'hostname' => 'sql',
 		'username' => 'openthc_main',
 		'password' => 'openthc_main',
 		'database' => 'openthc_main',
