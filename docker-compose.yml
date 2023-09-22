@@ -37,7 +37,7 @@ services:
     image: openthc/sso
     depends_on:
       - sql
-      - redis
+      - ram
     networks:
       openthc-subnet:
         ipv4_address: 10.4.20.10
@@ -45,7 +45,7 @@ services:
       - "42010:80"
     volumes:
       - type: bind
-        source: ../etc/config-sso.php
+        source: ./etc/config-sso.php
         target: /opt/openthc/sso/etc/config.php
         read_only: true
 
@@ -55,7 +55,7 @@ services:
     image: openthc/cre
     depends_on:
       - sql
-      - redis
+      - ram
     networks:
       openthc-subnet:
         ipv4_address: 10.4.20.20
@@ -63,7 +63,7 @@ services:
       - "42020:80"
     volumes:
       - type: bind
-        source: ../etc/config-cre.php
+        source: ./etc/config-cre.php
         target: /opt/openthc/cre/etc/config.php
         read_only: true
       # - openthc-gfs
@@ -76,7 +76,7 @@ services:
   #     - "42022:80"
   #   volumes:
   #     - type: bind
-  #       source: ../etc/config-pipe.php
+  #       source: ./etc/config-pipe.php
   #       target: /opt/openthc/pipe/etc/config.php
   #       read_only: true
 
@@ -88,7 +88,7 @@ services:
   #     - "42024:80"
   #   volumes:
   #     - type: bind
-  #       source: ../etc/config-bong.php
+  #       source: ./etc/config-bong.php
   #       target: /opt/openthc/bong/etc/config.php
   #       read_only: true
 
@@ -98,7 +98,7 @@ services:
     image: openthc/app
     depends_on:
       - sql
-      - redis
+      - ram
     networks:
       openthc-subnet:
         ipv4_address: 10.4.20.30
@@ -106,7 +106,7 @@ services:
       - "42030:80"
     volumes:
       - type: bind
-        source: ../etc/config-app.php
+        source: ./etc/config-app.php
         target: /opt/openthc/app/etc/config.php
         read_only: true
 
@@ -116,7 +116,7 @@ services:
     image: openthc/lab
     depends_on:
       - sql
-      - redis
+      - ram
     networks:
       openthc-subnet:
         ipv4_address: 10.4.20.40
@@ -124,7 +124,7 @@ services:
       - "42040:80"
     volumes:
       - type: bind
-        source: ../etc/config-lab.php
+        source: ./etc/config-lab.php
         target: /opt/openthc/lab/etc/config.php
         read_only: true
 
@@ -134,7 +134,7 @@ services:
     image: openthc/pos
     depends_on:
       - sql
-      - redis
+      - ram
     networks:
       openthc-subnet:
         ipv4_address: 10.4.20.50
@@ -142,7 +142,7 @@ services:
       - "42050:80"
     volumes:
       - type: bind
-        source: ../etc/config-pos.php
+        source: ./etc/config-pos.php
         target: /opt/openthc/pos/etc/config.php
         read_only: true
 
