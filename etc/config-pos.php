@@ -5,11 +5,13 @@
 
 $cfg = [];
 
-$cfg['application'] = [
-	'base' => 'http://localhost:42050',
-];
-
 $cfg['database'] = [
+	'auth' => [
+		'hostname' => 'sql',
+		'username' => 'openthc_auth',
+		'password' => 'openthc_auth',
+		'database' => 'openthc_auth',
+	],
 	'main' => [
 		'hostname' => 'sql0',
 		'username' => 'openthc_main',
@@ -19,27 +21,26 @@ $cfg['database'] = [
 ];
 
 $cfg['redis'] = [
-	'hostname' => 'redis',
+	'hostname' => 'ram',
 ];
 
 $cfg['openthc'] = [
 	'app' => [
-		'origin' => 'http://localhost:42030/',
-		'public' => 'app',
-		'secret' => 'CONFIGURE_THIS',
+		'origin' => 'http://10.4.20.30/',
 		'scope' => 'contact company',
 	],
 	'dir' => [
-		'hostname' => 'dir'
+		'origin' => 'https://directory.openthc.com',
 	],
-	'pipe' => [
-		'origin' => '',
-		'secret' => '',
-		'scope' => 'pipe cre',
+	'pos' => [
+		'id' => '010PENTHCXSERV1CE000000P0S',
+		'origin' => 'http://10.4.20.50',
+		'public' => '',
 	],
 	'sso' => [
-		'origin' => 'http://localhost:42010',
-		'secret' => '',
+		'origin' => 'http://10.4.20.10',
+		'public' => '010PENTHCXSERV1CE000000P0S',
+		'secret' => 'SK/pos.demo.openthc.com',
 		'scope' => 'contact company profile cre pos',
 	]
 ];

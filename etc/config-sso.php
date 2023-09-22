@@ -7,31 +7,35 @@ $cfg = [];
 
 $cfg['database'] = [
 	'auth' => [
-		'hostname' => 'sql0',
+		'hostname' => 'sql',
 		'username' => 'openthc_auth',
 		'password' => 'openthc_auth',
 		'database' => 'openthc_auth',
 	],
 	'main' => [
-		'hostname' => 'sql0',
+		'hostname' => 'sql',
 		'username' => 'openthc_main',
 		'password' => 'openthc_main',
 		'database' => 'openthc_main',
 	],
 ];
 
+$cfg['redis'] = [
+	'hostname' => 'ram',
+];
+
 $cfg['openthc'] = [
 	'app' => [
-		'origin' => 'http://localhost:42030',
+		'origin' => 'http://10.4.20.30',
 	],
 	'lab' => [
-		'origin' => 'http://localhost:42040',
+		'origin' => 'http://10.4.20.40',
 	],
 	'pos' => [
-		'origin' => 'http://localhost:42050',
+		'origin' => 'http://10.4.20.50',
 	],
 	'sso' => [
-		'origin' => 'http://localhost:42010',
+		'origin' => 'http://10.4.20.10',
 		'public' => '',
 		'secret' => '',
 	]
