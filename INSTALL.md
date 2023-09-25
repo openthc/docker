@@ -56,6 +56,8 @@ You may need to enable IP forwarding in the kernel, or other firewall rules.
 Set the names, then configure Nginx or something.
 The backend can be configured to either the localhost:420* ports or on the 10-net port 80.
 
+An example is visible in [etc/apache2-example.conf](etc/apache2-example.conf)
+
 
 ## Service Keys
 
