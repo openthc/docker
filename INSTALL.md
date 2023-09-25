@@ -84,13 +84,8 @@ docker-compose exec app php ./sbin/first-time.php
 
 The following services will be available on the host system using the default configuration:
 
-- [App - http://localhost:42030](http://localhost:42030)
-- [Lab Portal - http://localhost:42040](http://localhost:42040)
-- [Point of Sale - http://localhost:42050](http://localhost:42050)
+- [App - http://10.4.20.30](http://10.4.20.30)
+- [Lab Portal - http://10.4.20.40](http://10.4.20.40)
+- [Point of Sale - http://10.4.20.50](http://10.4.20.50)
 
-To login visit http://localhost:42010/auth/open
-
-|			|						|
-| ---		| ---					|
-| Email		| `root@openthc.local`	|
-| Password 	| `password`			|
+To login visit http://10.4.20.10/auth/open

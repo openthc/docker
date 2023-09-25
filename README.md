@@ -18,16 +18,18 @@ These images are available from our [Docker Hub Profile](https://hub.docker.com/
 
 ## Quick Start
 
+This docker-compose will create the OpenTHC Suite which is all the services needed to operate a farm or retail operation.
+Out of the box it's configured to create a local-subnet for the containers.
+
 ```bash
 git clone https://github.com/openthc/docker.git /opt/openthc/docker
 cd /opt/openthc/docker
 docker compose up -d
 ```
 
-Then visit http://localhost:42010/ => http://localhost:42040/auth/open?service=app.openthc.docker.example.com
+Then visit http://10.4.20.10/ and sign in with `root@openthc.example` and `OpenTHC!420`
 
-
-See [INSTALL.md](./INSTALL.md) for more information.
+See [INSTALL.md](./INSTALL.md) for more information and configuration options.
 
 
 ## Services
