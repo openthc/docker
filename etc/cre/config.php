@@ -19,10 +19,10 @@ $cfg['redis'] = [
 $cfg['openthc'] = [
 	'cre' => [
 		'id' => '010PENTHCXSERV1CE000000CRE',
-		'origin' => 'http://10.4.20.20',
+		'origin' => 'http://cre.docker.openthc.io',
 	],
 	'sso' => [
-		'origin' => 'http://10.4.20.10',
+		'origin' => 'http://sso.docker.openthc.io',
 		'public' => '',
 		'secret' => '',
 	]

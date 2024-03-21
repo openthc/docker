@@ -31,15 +31,15 @@ $cfg['redis'] = [
 $cfg['openthc'] = [
 	'app' => [
 		'id' => '010PENTHCXSERV1CE000000APP',
-		'origin' => 'http://10.4.20.30/',
+		'origin' => 'http://app.docker.openthc.io',
 		// This Applications Keys for talking to Others
-		'public' => '17dMAGZawAnh_i_QDQ19EFH_P6fbKDWewAV9NxozQnI',
-		'secret' => 'gBgCI6ZUIlUPK4YAAM0MGOe8mVWkYNWml5fZ3baXjG8',
+		'public' => '',
+		'secret' => '',
 		// 'scope' => 'contact company',
 	],
 	'cre' => [
 		'id' => '',
-		'origin' => 'http://10.4.20.20',
+		'origin' => 'http://cre.docker.openthc.io',
 		'public' => '', // CRE Public Key
 	],
 	'dir' => [
@@ -50,18 +50,19 @@ $cfg['openthc'] = [
 	],
 	'lab' => [
 		'id' => '',
-		'origin' => 'http://10.4.20.40/',
+		'origin' => 'http://lab.docker.openthc.io',
 		'public' => '',
 	],
 	'pos' => [
 		'id' => '',
-		'origin' => 'http://10.4.20.50/',
+		'origin' => 'http://pos.docker.openthc.io',
 		'public' => '',
 	],
 	'sso' => [
-		'origin' => 'http://10.4.20.10/',
-		'public' => 'JEWoMtX-FpXaTI4MJLNoV7CWWWH5zdFeXETZiHpmhCo', // Their Public Key
-		'secret' => 'gBgCI6ZUIlUPK4YAAM0MGOe8mVWkYNWml5fZ3baXjG8', // // My Secret for Talking to CRE
+		'origin' => 'http://sso.docker.openthc.io',
+		'public' => '', // Their Public Key
+		'oauth-client-id' => '',
+		'oauth-client-sk' => '', // // My Secret for Talking to CRE
 		// 'scope' => 'contact company profile cre pos',
 	],
 ];
