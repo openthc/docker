@@ -27,7 +27,7 @@ cd /opt/openthc/docker
 docker compose up -d
 ```
 
-Then visit http://10.4.20.10/ and sign in with `root@openthc.example` and `OpenTHC!420`
+Then visit http://sso.openthc.me/ and sign in with `root@openthc.me` and `passweed`
 
 See [INSTALL.md](./INSTALL.md) for more information and configuration options.
 

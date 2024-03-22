@@ -26,22 +26,21 @@ $cfg['redis'] = [
 
 $cfg['openthc'] = [
 	'app' => [
-		'origin' => 'http://app.docker.openthc.io',
-		'scope' => 'contact company',
+		'origin' => 'http://app.openthc.me',
 	],
 	'dir' => [
 		'origin' => 'https://directory.openthc.com',
 	],
 	'pos' => [
 		'id' => '010PENTHCXSERV1CE000000P0S',
-		'origin' => 'http://pos.docker.openthc.io',
+		'origin' => 'http://pos.openthc.me',
 		'public' => '',
 	],
 	'sso' => [
-		'origin' => 'http://sso.docker.openthc.io',
+		'origin' => 'http://sso.openthc.me',
 		'public' => '010PENTHCXSERV1CE000000P0S',
 		'secret' => 'SK/pos.demo.openthc.com',
-		'scope' => 'contact company profile cre pos',
+		'scope' => 'contact company license profile cre pos',
 	]
 ];
 

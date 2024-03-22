@@ -21,11 +21,11 @@ $cfg['openthc'] = [
 	],
 	'lab' => [
 		'id' => '010PENTHCXSERV1CE000000LAB',
-		'origin' => 'http://lab.docker.openthc.io',
+		'origin' => 'http://lab.openthc.me',
 		'secret' => 'lab.openthc.local-secret',
 	],
 	'sso' => [
-		'origin' => 'http://sso.docker.openthc.io',
+		'origin' => 'http://sso.openthc.me',
 		'public' => 'lab',
 		'secret' => 'lab.openthc.local-secret',
 	],

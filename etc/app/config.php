@@ -31,7 +31,7 @@ $cfg['redis'] = [
 $cfg['openthc'] = [
 	'app' => [
 		'id' => '010PENTHCXSERV1CE000000APP',
-		'origin' => 'http://app.docker.openthc.io',
+		'origin' => 'http://app.openthc.me',
 		// This Applications Keys for talking to Others
 		'public' => '',
 		'secret' => '',
@@ -39,7 +39,7 @@ $cfg['openthc'] = [
 	],
 	'cre' => [
 		'id' => '',
-		'origin' => 'http://cre.docker.openthc.io',
+		'origin' => 'http://cre.openthc.me',
 		'public' => '', // CRE Public Key
 	],
 	'dir' => [
@@ -50,16 +50,16 @@ $cfg['openthc'] = [
 	],
 	'lab' => [
 		'id' => '',
-		'origin' => 'http://lab.docker.openthc.io',
+		'origin' => 'http://lab.openthc.me',
 		'public' => '',
 	],
 	'pos' => [
 		'id' => '',
-		'origin' => 'http://pos.docker.openthc.io',
+		'origin' => 'http://pos.openthc.me',
 		'public' => '',
 	],
 	'sso' => [
-		'origin' => 'http://sso.docker.openthc.io',
+		'origin' => 'http://sso.openthc.me',
 		'public' => '', // Their Public Key
 		'oauth-client-id' => '',
 		'oauth-client-sk' => '', // // My Secret for Talking to CRE
