@@ -23,7 +23,7 @@ services:
     container_name: sql.openthc.me
     image: openthc/sql
     environment:
-      - POSTGRES_PASSWORD="OpenTHC!420"
+      - POSTGRES_PASSWORD="passweed"
     # ports:
     #   - "127.0.0.1:42095:5432"
 
@@ -31,6 +31,16 @@ services:
   ram:
     container_name: ram.openthc.me
     image: redis
+
+  # OPA
+  opa:
+    container_name: opa.openthc.me
+    image: "openpolicyagent/opa:0.62.1"
+    command: run --server --v1-compatible --addr :8181 --disable-telemetry
+    networks:
+      default:
+        aliases:
+          - opa.openthc.me
 
   # Single Sign On Services
   sso:
