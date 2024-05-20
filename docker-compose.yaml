@@ -8,13 +8,19 @@ version: "3.7"
 
 services:
 
+  # @see https://dev.to/kittipat1413/deploying-your-container-with-https-using-traefik-as-a-reverse-proxy-1859
+  # @see https://www.youtube.com/watch?v=naCHq6sMMI8
   traefik:
     container_name: hub.openthc.me
     image: "traefik:v2.11.0"
-    command: --providers.docker=true
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -24,69 +30,78 @@ services:
     image: openthc/sql
     environment:
       - POSTGRES_PASSWORD="passweed"
-    # ports:
-    #   - "127.0.0.1:42095:5432"
+    # volumes:
+    #   - /opt/openthc-docker/sql:/var/lib/postgres/data
 
   # The Redis System
-  ram:
-    container_name: ram.openthc.me
+  # @see https://github.com/nextcloud/all-in-one/discussions/1731
+  rdb:
+    container_name: rdb.openthc.me
     image: redis
 
   # OPA
+  # https://community.traefik.io/t/port-is-missing/4422
   opa:
     container_name: opa.openthc.me
-    image: "openpolicyagent/opa:0.62.1"
-    command: run --server --v1-compatible --addr :8181 --disable-telemetry
+    image: "openpolicyagent/opa:0.64.1"
+    command:
+      - "run"
+      - "--server"
+      - "--v1-compatible"
+      - "--disable-telemetry"
+      - "--addr=:6000"
+      - "--diagnostic-addr=:6001"
     networks:
       default:
         aliases:
           - opa.openthc.me
+    expose:
+      - "6000"
 
   # Single Sign On Services
   sso:
     container_name: sso.openthc.me
     image: openthc/sso
+    labels:
+      - "traefik.http.routers.sso.rule=Host(`sso.openthc.me`)"
     depends_on:
       - traefik
       - sql
-      - ram
+      - rdb
+    volumes:
+      - type: bind
+        source: ./etc/sso/config.php
+        target: /opt/openthc/sso/etc/config.php
+        read_only: true
     networks:
       default:
         aliases:
           - sso.openthc.me
     expose:
       - "80"
-    volumes:
-      - type: bind
-        source: ./etc/sso/config.php
-        target: /opt/openthc/sso/etc/config.php
-        read_only: true
-    labels:
-      - "traefik.http.routers.sso.rule=Host(`sso.openthc.me`)"
 
   # Compliance Reporting Engine
   cre:
     container_name: cre.openthc.me
     image: openthc/cre
+    labels:
+      - "traefik.http.routers.cre.rule=Host(`cre.openthc.me`)"
     depends_on:
+      - traefik
       - sql
-      - ram
+      - rdb
+    volumes:
+      - type: bind
+        source: ./etc/cre/config.php
+        target: /opt/openthc/cre/etc/config.php
+        read_only: true
+      # - openthc-gfs
     networks:
       default:
         aliases:
           - cre.openthc.me
     expose:
       - "80"
-    # ports:
-    #   - "42020:80"
-    volumes:
-      - type: bind
-        source: ./etc/cre/config.php
-        target: /opt/openthc/cre/etc/config.php
-        read_only: true
-    labels:
-      - "traefik.http.routers.cre.rule=Host(`cre.openthc.me`)"
-      # - openthc-gfs
 
   # PIPE
   # pipe:
@@ -116,9 +131,17 @@ services:
   app:
     container_name: app.openthc.me
     image: openthc/app
+    labels:
+      - "traefik.http.routers.app.rule=Host(`app.openthc.me`)"
     depends_on:
+      - traefik
       - sql
-      - ram
+      - rdb
+    volumes:
+      - type: bind
+        source: ./etc/app/config.php
+        target: /opt/openthc/app/etc/config.php
+        read_only: true
     networks:
       default:
         aliases:
@@ -127,59 +150,50 @@ services:
       - "80"
   #   ports:
   #     - "42030:80"
-    volumes:
-      - type: bind
-        source: ./etc/app/config.php
-        target: /opt/openthc/app/etc/config.php
-        read_only: true
-    labels:
-      - "traefik.http.routers.app.rule=Host(`app.openthc.me`)"
 
   # Laboratory Interface
   lab:
     container_name: lab.openthc.me
     image: openthc/lab
+    labels:
+      - "traefik.http.routers.lab.rule=Host(`lab.openthc.me`)"
     depends_on:
+      - traefik
       - sql
-      - ram
+      - rdb
+    volumes:
+      - type: bind
+        source: ./etc/lab/config.php
+        target: /opt/openthc/lab/etc/config.php
+        read_only: true
     networks:
       default:
         aliases:
           - lab.openthc.me
     expose:
       - "80"
-  #   ports:
-  #     - "42040:80"
-    volumes:
-      - type: bind
-        source: ./etc/lab/config.php
-        target: /opt/openthc/lab/etc/config.php
-        read_only: true
-    labels:
-      - "traefik.http.routers.lab.rule=Host(`lab.openthc.me`)"
 
   # Point of Sale
   pos:
     container_name: pos.openthc.me
     image: openthc/pos
+    labels:
+      - "traefik.http.routers.pos.rule=Host(`pos.openthc.me`)"
     depends_on:
+      - traefik
       - sql
-      - ram
+      - rdb
+    volumes:
+      - type: bind
+        source: ./etc/pos/config.php
+        target: /opt/openthc/pos/etc/config.php
+        read_only: true
     networks:
       default:
         aliases:
           - pos.openthc.me
     expose:
       - "80"
-    # ports:
-    #   - "42050:80"
-    volumes:
-      - type: bind
-        source: ./etc/pos/config.php
-        target: /opt/openthc/pos/etc/config.php
-        read_only: true
-    labels:
-      - "traefik.http.routers.pos.rule=Host(`pos.openthc.me`)"
 
 volumes:
   gfs:
