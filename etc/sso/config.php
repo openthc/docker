@@ -21,7 +21,7 @@ $cfg['database'] = [
 ];
 
 $cfg['redis'] = [
-	'hostname' => 'ram',
+	'hostname' => 'rdb',
 ];
 
 $cfg['openthc'] = [

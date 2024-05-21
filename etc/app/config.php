@@ -24,7 +24,7 @@ $cfg['database'] = [
 
 // Redis
 $cfg['redis'] = [
-	'hostname' => 'ram',
+	'hostname' => 'rdb',
 ];
 
 // OpenTHC Services
