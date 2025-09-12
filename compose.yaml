@@ -13,6 +13,9 @@ services:
   traefik:
     container_name: hub.openthc.me
     image: "traefik:v2.11.0"
+    labels:
+      - "traefik.http.routers.api.rule=Host(`hub.openthc.me`)"
+      - "traefik.http.routers.api.service=api@internal"
     command:
       - "--api.dashboard=true"
       - "--api.insecure=true"
@@ -20,8 +23,11 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"
     volumes:
+      # - ../etc/traefik/traefik.yaml:/etc/traefik/traefik.yml
+      # - ../etc/traefik/tls.yaml:/etc/traefik/tls.yml
+      # - ../etc/traefik/ssl:/etc/ssl/traefik
       - /var/run/docker.sock:/var/run/docker.sock
 
   # The SQL Database Service
@@ -31,7 +37,7 @@ services:
     environment:
       - POSTGRES_PASSWORD="passweed"
     # volumes:
-    #   - /opt/openthc-docker/sql:/var/lib/postgres/data
+    #   - ./volumes/sql/data:/var/lib/postgres/data
 
   # The Redis System
   # @see https://github.com/nextcloud/all-in-one/discussions/1731
@@ -45,10 +51,12 @@ services:
     image: openthc/sso
     labels:
       - "traefik.http.routers.sso.rule=Host(`sso.openthc.me`)"
+      # - "traefik.http.routers.sso-tls.tls.domains[0].main=sso.openthc.me"
     depends_on:
       - traefik
       - sql
       - rdb
+    env_file: ".env"
     volumes:
       - type: bind
         source: ./etc/sso/config.php
@@ -71,6 +79,7 @@ services:
       - traefik
       - sql
       - rdb
+    env_file: ".env"
     volumes:
       - type: bind
         source: ./etc/cre/config.php
@@ -84,12 +93,11 @@ services:
     expose:
       - "80"
 
+
   # PIPE
   # pipe:
   #   container_name: pipe.openthc.me
   #   image: openthc/pipe
-  #   ports:
-  #     - "42022:80"
   #   volumes:
   #     - type: bind
   #       source: ./etc/config-pipe.php
@@ -99,9 +107,7 @@ services:
   # BONG
   # bong:
   #   container_name: bong.openthc.me
-  #   image: openthc/bong:
-  #   ports:
-  #     - "42024:80"
+  #   image: openthc/bong
   #   volumes:
   #     - type: bind
   #       source: ./etc/config-bong.php
@@ -118,6 +124,7 @@ services:
       - traefik
       - sql
       - rdb
+    env_file: ".env"
     volumes:
       - type: bind
         source: ./etc/app/config.php
@@ -127,30 +134,6 @@ services:
       default:
         aliases:
           - app.openthc.me
-    expose:
-      - "80"
-  #   ports:
-  #     - "42030:80"
-
-  # Laboratory Interface
-  lab:
-    container_name: lab.openthc.me
-    image: openthc/lab
-    labels:
-      - "traefik.http.routers.lab.rule=Host(`lab.openthc.me`)"
-    depends_on:
-      - traefik
-      - sql
-      - rdb
-    volumes:
-      - type: bind
-        source: ./etc/lab/config.php
-        target: /opt/openthc/lab/etc/config.php
-        read_only: true
-    networks:
-      default:
-        aliases:
-          - lab.openthc.me
     expose:
       - "80"
 
@@ -164,6 +147,7 @@ services:
       - traefik
       - sql
       - rdb
+    env_file: ".env"
     volumes:
       - type: bind
         source: ./etc/pos/config.php
@@ -178,4 +162,4 @@ services:
 
 volumes:
   gfs:
-    name: openthc-gfs
+    name: gfs.openthc.me
