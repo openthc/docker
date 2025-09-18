@@ -30,6 +30,7 @@ services:
       # - ../etc/traefik/ssl:/etc/ssl/traefik
       - /var/run/docker.sock:/var/run/docker.sock
 
+
   # The SQL Database Service
   sql:
     container_name: sql.openthc.me
@@ -39,11 +40,13 @@ services:
     # volumes:
     #   - ./volumes/sql/data:/var/lib/postgres/data
 
+
   # The Redis System
   # @see https://github.com/nextcloud/all-in-one/discussions/1731
   rdb:
     container_name: rdb.openthc.me
     image: redis
+
 
   # Single Sign On Services
   sso:
@@ -56,7 +59,9 @@ services:
       - traefik
       - sql
       - rdb
-    env_file: ".env"
+    env_file:
+      - path: ".env"
+        required: false
     volumes:
       - type: bind
         source: ./etc/sso/config.php
@@ -69,6 +74,7 @@ services:
     expose:
       - "80"
 
+
   # Compliance Reporting Engine
   cre:
     container_name: cre.openthc.me
@@ -79,7 +85,9 @@ services:
       - traefik
       - sql
       - rdb
-    env_file: ".env"
+    env_file:
+      - path: ".env"
+        required: false
     volumes:
       - type: bind
         source: ./etc/cre/config.php
@@ -98,21 +106,53 @@ services:
   # pipe:
   #   container_name: pipe.openthc.me
   #   image: openthc/pipe
+  #   labels:
+  #     - "traefik.http.routers.pipe.rule=Host(`pipe.openthc.me`)"
+  #   depends_on:
+  #     - traefik
+  #     - sql
+  #     - rdb
+  #   env_file:
+  #     - path: ".env"
+  #       required: false
   #   volumes:
   #     - type: bind
-  #       source: ./etc/config-pipe.php
+  #       source: ./etc/pipe/config.php
   #       target: /opt/openthc/pipe/etc/config.php
   #       read_only: true
+  #   networks:
+  #     default:
+  #       aliases:
+  #         - pipe.openthc.me
+  #   expose:
+  #     - "80"
+
 
   # BONG
   # bong:
   #   container_name: bong.openthc.me
   #   image: openthc/bong
+  #   labels:
+  #     - "traefik.http.routers.bong.rule=Host(`bong.openthc.me`)"
+  #   depends_on:
+  #     - traefik
+  #     - sql
+  #     - rdb
+  #   env_file:
+  #     - path: ".env"
+  #     required: false
   #   volumes:
   #     - type: bind
-  #       source: ./etc/config-bong.php
+  #       source: ./etc/bong/config.php
   #       target: /opt/openthc/bong/etc/config.php
   #       read_only: true
+  #   networks:
+  #     default:
+  #       aliases:
+  #         - bong.openthc.me
+  #   expose:
+  #     - "80"
+
 
   # Main Application / S2S / TNT
   app:
@@ -124,7 +164,9 @@ services:
       - traefik
       - sql
       - rdb
-    env_file: ".env"
+    env_file:
+      - path: ".env"
+        required: false
     volumes:
       - type: bind
         source: ./etc/app/config.php
@@ -137,6 +179,7 @@ services:
     expose:
       - "80"
 
+
   # Point of Sale
   pos:
     container_name: pos.openthc.me
@@ -147,7 +190,9 @@ services:
       - traefik
       - sql
       - rdb
-    env_file: ".env"
+    env_file:
+      - path: ".env"
+        required: false
     volumes:
       - type: bind
         source: ./etc/pos/config.php
@@ -159,6 +204,7 @@ services:
           - pos.openthc.me
     expose:
       - "80"
+
 
 volumes:
   gfs:
