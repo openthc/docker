@@ -8,27 +8,15 @@ name: openthc
 
 services:
 
-  # @see https://dev.to/kittipat1413/deploying-your-container-with-https-using-traefik-as-a-reverse-proxy-1859
-  # @see https://www.youtube.com/watch?v=naCHq6sMMI8
-  traefik:
+  hub:
     container_name: hub.openthc.me
-    image: "traefik:v2.11.0"
-    labels:
-      - "traefik.http.routers.api.rule=Host(`hub.openthc.me`)"
-      - "traefik.http.routers.api.service=api@internal"
-    command:
-      - "--api.dashboard=true"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-    restart: unless-stopped
+    image: caddy
     ports:
       - "80:80"
-      # - "443:443"
+      - "443:443"
     volumes:
-      # - ../etc/traefik/traefik.yaml:/etc/traefik/traefik.yml
-      # - ../etc/traefik/tls.yaml:/etc/traefik/tls.yml
-      # - ../etc/traefik/ssl:/etc/ssl/traefik
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./etc/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy-data:/data
 
 
   # The SQL Database Service
@@ -52,11 +40,8 @@ services:
   sso:
     container_name: sso.openthc.me
     image: openthc/sso
-    labels:
-      - "traefik.http.routers.sso.rule=Host(`sso.openthc.me`)"
-      # - "traefik.http.routers.sso-tls.tls.domains[0].main=sso.openthc.me"
     depends_on:
-      - traefik
+      - hub
       - sql
       - rdb
     env_file:
@@ -79,10 +64,8 @@ services:
   cre:
     container_name: cre.openthc.me
     image: openthc/cre
-    labels:
-      - "traefik.http.routers.cre.rule=Host(`cre.openthc.me`)"
     depends_on:
-      - traefik
+      - hub
       - sql
       - rdb
     env_file:
@@ -106,10 +89,8 @@ services:
   # pipe:
   #   container_name: pipe.openthc.me
   #   image: openthc/pipe
-  #   labels:
-  #     - "traefik.http.routers.pipe.rule=Host(`pipe.openthc.me`)"
   #   depends_on:
-  #     - traefik
+  #     - hub
   #     - sql
   #     - rdb
   #   env_file:
@@ -132,10 +113,8 @@ services:
   # bong:
   #   container_name: bong.openthc.me
   #   image: openthc/bong
-  #   labels:
-  #     - "traefik.http.routers.bong.rule=Host(`bong.openthc.me`)"
   #   depends_on:
-  #     - traefik
+  #     - hub
   #     - sql
   #     - rdb
   #   env_file:
@@ -158,10 +137,8 @@ services:
   app:
     container_name: app.openthc.me
     image: openthc/app
-    labels:
-      - "traefik.http.routers.app.rule=Host(`app.openthc.me`)"
     depends_on:
-      - traefik
+      - hub
       - sql
       - rdb
     env_file:
@@ -184,10 +161,8 @@ services:
   pos:
     container_name: pos.openthc.me
     image: openthc/pos
-    labels:
-      - "traefik.http.routers.pos.rule=Host(`pos.openthc.me`)"
     depends_on:
-      - traefik
+      - hub
       - sql
       - rdb
     env_file:
