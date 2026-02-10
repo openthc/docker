@@ -1,0 +1,72 @@
+#
+# OpenTHC Docker Caddyfile
+#
+# Just Proxy to Everything
+#
+
+{
+	auto_https off
+	# debug
+	# default_sni ""
+	# email
+
+	log default {
+		# output file /var/log/caddy/access.log
+		level info
+		include http.log.access admin.api
+	}
+
+	metrics {
+		per_host
+	}
+}
+
+http:// {
+	respond "DEFAULT"
+}
+
+http://hub.openthc.me {
+	respond "hub.openthc.me"
+}
+
+http://sso.openthc.me {
+	reverse_proxy http://sso
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}
+
+http://cre.openthc.me {
+	reverse_proxy http://cre
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}
+
+http://pipe.openthc.me {
+	reverse_proxy http://pipe
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}
+
+http://bong.openthc.me {
+	reverse_proxy http://bong
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}
+
+http://app.openthc.me {
+	reverse_proxy http://app
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}
+
+http://pos.openthc.me {
+	reverse_proxy http://pos
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}

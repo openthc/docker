@@ -10,13 +10,13 @@ services:
 
   hub:
     container_name: hub.openthc.me
-    image: caddy
+    image: openthc/web
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./etc/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy-data:/data
+      - ./volumes/hub/data:/data
 
 
   # The SQL Database Service
@@ -24,9 +24,7 @@ services:
     container_name: sql.openthc.me
     image: openthc/sql
     environment:
-      - POSTGRES_PASSWORD="passweed"
-    # volumes:
-    #   - ./volumes/sql/data:/var/lib/postgres/data
+      POSTGRES_PASSWORD: "passweed"
 
 
   # The Redis System
@@ -34,6 +32,12 @@ services:
   rdb:
     container_name: rdb.openthc.me
     image: redis
+
+
+  # Open Policy Agent (ACL)
+  # opa:
+  #   container_name: opa.openthc.me
+  #   image: opa
 
 
   # Single Sign On Services
@@ -44,14 +48,13 @@ services:
       - hub
       - sql
       - rdb
+    environment:
+      OPENTHC_SERVER_NAME: "sso.openthc.me"
     env_file:
-      - path: ".env"
+      - path: "./etc/demo.env"
+        required: true
+      - path: "./etc/live.env"
         required: false
-    volumes:
-      - type: bind
-        source: ./etc/sso/config.php
-        target: /opt/openthc/sso/etc/config.php
-        read_only: true
     networks:
       default:
         aliases:
@@ -65,18 +68,15 @@ services:
     container_name: cre.openthc.me
     image: openthc/cre
     depends_on:
-      - hub
-      - sql
-      - rdb
+      - sso
+    environment:
+      # OPENTHC_DEBUG: "true"
+      OPENTHC_SERVER_NAME: "cre.openthc.me"
     env_file:
-      - path: ".env"
+      - path: "./etc/demo.env"
+        required: true
+      - path: "./etc/live.env"
         required: false
-    volumes:
-      - type: bind
-        source: ./etc/cre/config.php
-        target: /opt/openthc/cre/etc/config.php
-        read_only: true
-      # - openthc-gfs
     networks:
       default:
         aliases:
@@ -90,17 +90,14 @@ services:
   #   container_name: pipe.openthc.me
   #   image: openthc/pipe
   #   depends_on:
-  #     - hub
-  #     - sql
-  #     - rdb
+  #     - sso
+  #   environment:
+  #     OPENTHC_SERVER_NAME: "pipe.openthc.me"
   #   env_file:
-  #     - path: ".env"
+  #     - path: "./etc/demo.env"
+  #       required: true
+  #     - path: "./etc/live.env"
   #       required: false
-  #   volumes:
-  #     - type: bind
-  #       source: ./etc/pipe/config.php
-  #       target: /opt/openthc/pipe/etc/config.php
-  #       read_only: true
   #   networks:
   #     default:
   #       aliases:
@@ -114,17 +111,14 @@ services:
   #   container_name: bong.openthc.me
   #   image: openthc/bong
   #   depends_on:
-  #     - hub
-  #     - sql
-  #     - rdb
+  #     - sso
+  #   environment:
+  #     OPENTHC_SERVER_NAME: "bong.openthc.me"
   #   env_file:
-  #     - path: ".env"
-  #     required: false
-  #   volumes:
-  #     - type: bind
-  #       source: ./etc/bong/config.php
-  #       target: /opt/openthc/bong/etc/config.php
-  #       read_only: true
+  #     - path: "./etc/demo.env"
+  #       required: true
+  #     - path: "./etc/live.env"
+  #       required: false
   #   networks:
   #     default:
   #       aliases:
@@ -138,17 +132,15 @@ services:
     container_name: app.openthc.me
     image: openthc/app
     depends_on:
-      - hub
-      - sql
-      - rdb
+      - sso
+    environment:
+      # OPENTHC_DEBUG: "true"
+      OPENTHC_SERVER_NAME: "app.openthc.me"
     env_file:
-      - path: ".env"
+      - path: "./etc/demo.env"
+        required: true
+      - path: "./etc/live.env"
         required: false
-    volumes:
-      - type: bind
-        source: ./etc/app/config.php
-        target: /opt/openthc/app/etc/config.php
-        read_only: true
     networks:
       default:
         aliases:
@@ -162,17 +154,14 @@ services:
     container_name: pos.openthc.me
     image: openthc/pos
     depends_on:
-      - hub
-      - sql
-      - rdb
+      - sso
+    environment:
+      OPENTHC_SERVER_NAME: "pos.openthc.me"
     env_file:
-      - path: ".env"
+      - path: "./etc/demo.env"
+        required: true
+      - path: "./etc/live.env"
         required: false
-    volumes:
-      - type: bind
-        source: ./etc/pos/config.php
-        target: /opt/openthc/pos/etc/config.php
-        read_only: true
     networks:
       default:
         aliases:

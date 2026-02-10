@@ -13,13 +13,8 @@ For full production one needs to update the configuration.
 ```bash
 git clone https://github.com/openthc/docker.git /opt/openthc/docker
 cd /opt/openthc/docker
+docker compose up
 ```
-
-To run our helper scripts you'll need PHP with libsodium (standard on Debian 11)
-
-Edit YAML or ENV and run `make.php` ?
-That build SQL file and Config File
-That run against SQL after the first boot.
 
 
 ## Configuration
@@ -83,11 +78,3 @@ docker-compose up -d
 # Run this after the first boot
 docker-compose exec app php ./sbin/first-time.php
 ```
-
-The following services will be available on the host system using the default configuration:
-
-- [App - http://10.4.20.30](http://10.4.20.30)
-- [Lab Portal - http://10.4.20.40](http://10.4.20.40)
-- [Point of Sale - http://10.4.20.50](http://10.4.20.50)
-
-To login visit http://10.4.20.10/auth/open
