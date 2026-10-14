@@ -17,6 +17,13 @@ services:
     volumes:
       - ./etc/Caddyfile:/etc/caddy/Caddyfile
       - ./volumes/hub/data:/data
+      - ./volumes/hub/config:/config
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile" ]
+    healthcheck:
+      test: [ "CMD", "/usr/bin/curl", "http://localhost/" ]
+      interval: 8s
+      timeout: 4s
+      retries: 2
 
 
   # The SQL Database Service
@@ -25,6 +32,11 @@ services:
     image: openthc/sql
     environment:
       POSTGRES_PASSWORD: "passweed"
+    healthcheck:
+      test: [ "CMD", "/usr/bin/pg_isready", "--host=127.0.0.1", "--username=postgres" ]
+      interval: 8s
+      timeout: 4s
+      retries: 4
 
 
   # The Redis System
@@ -32,6 +44,11 @@ services:
   rdb:
     container_name: rdb.openthc.me
     image: redis
+    healthcheck:
+      test: [ "CMD", "/usr/local/bin/redis-cli", "ping" ]
+      interval: 8s
+      timeout: 4s
+      retries: 4
 
 
   # Open Policy Agent (ACL)
@@ -45,9 +62,12 @@ services:
     container_name: sso.openthc.me
     image: openthc/sso
     depends_on:
-      - hub
-      - sql
-      - rdb
+      hub:
+        condition: service_healthy
+      sql:
+        condition: service_healthy
+      rdb:
+        condition: service_healthy
     environment:
       OPENTHC_SERVER_NAME: "sso.openthc.me"
     env_file:
@@ -55,10 +75,6 @@ services:
         required: true
       - path: "./etc/live.env"
         required: false
-    networks:
-      default:
-        aliases:
-          - sso.openthc.me
     expose:
       - "80"
 
@@ -70,17 +86,12 @@ services:
     depends_on:
       - sso
     environment:
-      # OPENTHC_DEBUG: "true"
       OPENTHC_SERVER_NAME: "cre.openthc.me"
     env_file:
       - path: "./etc/demo.env"
         required: true
       - path: "./etc/live.env"
         required: false
-    networks:
-      default:
-        aliases:
-          - cre.openthc.me
     expose:
       - "80"
 
@@ -98,10 +109,6 @@ services:
   #       required: true
   #     - path: "./etc/live.env"
   #       required: false
-  #   networks:
-  #     default:
-  #       aliases:
-  #         - pipe.openthc.me
   #   expose:
   #     - "80"
 
@@ -119,10 +126,6 @@ services:
   #       required: true
   #     - path: "./etc/live.env"
   #       required: false
-  #   networks:
-  #     default:
-  #       aliases:
-  #         - bong.openthc.me
   #   expose:
   #     - "80"
 
@@ -134,17 +137,14 @@ services:
     depends_on:
       - sso
     environment:
-      # OPENTHC_DEBUG: "true"
       OPENTHC_SERVER_NAME: "app.openthc.me"
     env_file:
       - path: "./etc/demo.env"
         required: true
       - path: "./etc/live.env"
         required: false
-    networks:
-      default:
-        aliases:
-          - app.openthc.me
+    volumes:
+      - ./etc/cre.yaml:/opt/openthc/app/etc/cre.yaml:ro
     expose:
       - "80"
 
@@ -162,10 +162,8 @@ services:
         required: true
       - path: "./etc/live.env"
         required: false
-    networks:
-      default:
-        aliases:
-          - pos.openthc.me
+    volumes:
+      - ./etc/cre.yaml:/opt/openthc/pos/etc/cre.yaml:ro
     expose:
       - "80"
 
