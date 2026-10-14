@@ -1,0 +1,11 @@
+---
+openthc:
+  live: true
+  name: "OpenTHC [me]"
+  server: "http://cre.openthc.me/"
+  # @deprecated
+  service-sk: "VaNoGKrVJRV1i-QcQILf3TqdwzO5K--XRJfXgMJRIcs"
+  server-pk: "_YEEAHG1PIlp4uZ0wxzWKNEuc__a0WDbwGb2-W5ZjGQ"
+  client-pk: "5gIafyWcr0IOW3jJotPqzdYd7nZ9ReL4dGGshJhzSEA"
+  client-sk: "VaNoGKrVJRV1i-QcQILf3TqdwzO5K--XRJfXgMJRIcs"
+...
